@@ -15,7 +15,7 @@ def import_from_csv(path):
 
 
 
-# import_from_csv('./map/charging_center/scene10_7._black.csv')
+# import_from_csv('./map/places/places/sanjayhome_obstacle.csv')
 
 
 def import_folder(path):

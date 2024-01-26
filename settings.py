@@ -3,6 +3,7 @@ WIDTH    = 1280
 HEIGTH   = 720
 FPS      = 60
 TILESIZE = 64
+DEFAULT_IMAGE_SIZE = (80, 80)
 
 WORLD_MAP = [
 ['x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x'],

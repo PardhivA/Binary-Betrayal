@@ -1,11 +1,11 @@
 import pygame
 from debug import debug
-from settings import TILESIZE
-
+from settings import *
+import globals
 from tools import import_folder
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, pos, groups, collision_sprites):
+    def __init__(self, pos, groups, collision_sprites, building_pos):
         # from PIL import Image
         super().__init__(groups)
         # imageinit = Image.open('')
@@ -14,25 +14,22 @@ class Player(pygame.sprite.Sprite):
         self.frame_index = 0
         self.animation_speed = 0.15
         self.DEFAULT_IMAGE_SIZE = (80, 80)
+        self.building_pos = building_pos
  
 # Scale the image to your needed size
         
 
         self.rect = self.image.get_rect(topleft =pos)
-        # self.rect = self.rect.
         self.hitbox = self.rect.inflate(0,-26)
-
         self.direction = pygame.math.Vector2()
         self.speed = 5
         self.collisions_sprites = collision_sprites
-        # self.total_x = 0
-        # self.total_y =0  
         self.animations = {}
         self.status = 'down'
         self.import_player_assets()
 
     def import_player_assets(self):
-        character_path = './graphics/characters/all_char/Arjun/'
+        character_path = './graphics/characters/all_char/Mad_Ai/'
         self.animations = {
             'up' : [], 'down' : [], 'left' : [], 'right' : [],
             'right_idle' : [], 'left_idle' : [], 'up_idle': [], 'down_idle': []
@@ -81,11 +78,11 @@ class Player(pygame.sprite.Sprite):
         self.hitbox.x += self.direction.x * speed
         self.collision('Horizontal')
         self.hitbox.y += self.direction.y * speed
-        if self.direction.y:
-            print(self.hitbox.y)
-            print(self.direction.y)
-            print(speed)
-            print('\n')
+        # if self.direction.y:
+            # print(self.hitbox.y)
+            # print(self.direction.y)
+            # print(speed)
+            # print('\n')
         self.collision('Vertical')
         self.rect.center = self.hitbox.center
         # print(self.rect.x, self.rect.y)
@@ -133,9 +130,21 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(center = self.hitbox.center)
         # self.rect = self.rect.inflate(-10,-10)
 
+    def transition_api(self):
+        index = 1
+        for pos in self.building_pos:
+
+            keys_pressed = pygame.key.get_pressed()
+            if(keys_pressed[pygame.K_SPACE] and self.hitbox.x >= pos[0] - 150 and self.hitbox.x <= pos[0] + 150 and self.hitbox.y >= pos[1] - 125 and self.hitbox.y <= pos[1] + 125):
+                print('FSDFD')
+                globals.SCENE = index
+            index += 1        
+
+
     def update(self):
         self.movement()
         self.get_status()
         self.animate()
+        self.transition_api()
         self.move(self.speed)
         debug(self.rect.center)
