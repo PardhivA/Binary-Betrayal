@@ -46,12 +46,12 @@ class AllSprites(pygame.sprite.Group):
         
 
 class Main:
-    def __init__(self):
+    def __init__(self,screen, gameStateManager):
         pygame.init()
-        self.display_surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+        self.display_surface = screen
         pygame.display.set_caption("Binary Betrayal")
         self.clock = pygame.time.Clock()
-        
+        self.gameStateManager = gameStateManager
         # groups
         self.all_sprites = AllSprites()
         self.collision_sprites = pygame.sprite.Group()

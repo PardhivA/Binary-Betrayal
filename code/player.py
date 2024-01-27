@@ -13,7 +13,7 @@ class Player(Entity):
         
         # vertical movement
         self.gravity = 15
-        self.jump_speed = 1400
+        self.jump_speed = 1200
         self.on_floor = False
         
         self.moving_floor = None
@@ -120,7 +120,7 @@ class Player(Entity):
             self.on_floor = False
                       
     def check_death(self):
-        if self.health <= 0:
+        if self.health <= 0 or self.pos.y > 10000:
             pygame.quit()
             sys.exit()
     

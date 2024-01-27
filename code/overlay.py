@@ -8,6 +8,6 @@ class Overlay:
     
     def display(self):
         for h in range(self.player.health):
-            x  = h * self.health_surf.get_width()
+            x  = (h/2) * self.health_surf.get_width()
             y = 10
             self.display_surface.blit(self.health_surf, (x,y))
